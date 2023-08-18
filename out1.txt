@@ -1,0 +1,16 @@
+public class in1
+{
+public static void main(String [] args)
+{
+int j = 2 ;
+int motor = 0, sensorValue = 0 ;
+if (motor == 1)
+{
+sensorValue++;
+}
+else if (motor == 0)
+{
+sensorValue--;
+}
+}
+}

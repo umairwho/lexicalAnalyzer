@@ -38,7 +38,7 @@ class Preprocessor {
 
     // Method to remove import statements, annotations, and save a Java file
     private static void removeImportsAnnotationsAndSaveJavaFile(String inputFileName) throws IOException {
-        String outputFileName = inputFileName + "_output.java"; // Create a new name for the output file
+        String outputFileName = "out1.txt"; // Name of the output file
 
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFileName));
              BufferedWriter writer = new BufferedWriter(new FileWriter(outputFileName))) {
