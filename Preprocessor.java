@@ -17,19 +17,21 @@ class Preprocessor {
 
                 if (curr_file.exists()) {
                     sc.close();
-                    break;  // Exit the loop if the file exists
+                    // If file exists, exit the loop
+                    break;  
                 } else {
                     System.out.println("File not found.");
                 }
             }
         } else {
             input_file = args[0];
-            System.out.println(input_file);
         }
 
         try {
-            removeImportsAnnotationsAndSaveJavaFile(input_file);  // Call the method to remove and save the output file
-            printOutputFileContents(); // Call the method to print the output file contents
+            // Call the method to remove and save the output file
+            removeImportsAnnotationsAndSaveJavaFile(input_file);  
+            // Call the method to print the output file contents
+            printOutputFileContents(); 
         } catch (IOException e) {
             System.out.println("Error writing output file: " + e.getMessage());
         }
@@ -37,9 +39,10 @@ class Preprocessor {
         //System.out.println("here: " + input_file);
     }
 
-    // Method to remove import statements, annotations, and save a Java file
+    // Method to remove import statements/annotations, and save file
     private static void removeImportsAnnotationsAndSaveJavaFile(String inputFileName) throws IOException {
-        String outputFileName = "out1.txt"; // Name of the output file
+        // Output file name here
+        String outputFileName = "out1.txt"; 
 
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFileName));
              BufferedWriter writer = new BufferedWriter(new FileWriter(outputFileName))) {
