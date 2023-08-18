@@ -28,7 +28,7 @@ class Preprocessor {
         }
 
         try {
-            formatAndSaveJavaFile(input_file);  // Call the method to format and save the output file
+            removeImportsAnnotationsAndSaveJavaFile(input_file);  // Call the method to remove and save the output file
         } catch (IOException e) {
             System.out.println("Error writing output file: " + e.getMessage());
         }
@@ -36,8 +36,8 @@ class Preprocessor {
         System.out.println("here: " + input_file);
     }
 
-    // Method to format and save a Java file
-    private static void formatAndSaveJavaFile(String inputFileName) throws IOException {
+    // Method to remove import statements, annotations, and save a Java file
+    private static void removeImportsAnnotationsAndSaveJavaFile(String inputFileName) throws IOException {
         String outputFileName = inputFileName + "_output.java"; // Create a new name for the output file
 
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFileName));
@@ -73,7 +73,8 @@ class Preprocessor {
                     }
                 }
 
-                if (!trimmedLine.isEmpty()) {
+                // Remove import statements and annotations
+                if (!trimmedLine.isEmpty() && !trimmedLine.startsWith("import") && !trimmedLine.startsWith("@")) {
                     String formattedLine = trimmedLine.replaceAll("\t", " "); // Replace tabs with spaces
                     formattedLine = formattedLine.replaceAll(" +", " "); // Replace multiple spaces with single space
                     writer.write(formattedLine);
