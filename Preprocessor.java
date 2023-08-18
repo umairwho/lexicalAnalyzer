@@ -29,11 +29,12 @@ class Preprocessor {
 
         try {
             removeImportsAnnotationsAndSaveJavaFile(input_file);  // Call the method to remove and save the output file
+            printOutputFileContents(); // Call the method to print the output file contents
         } catch (IOException e) {
             System.out.println("Error writing output file: " + e.getMessage());
         }
 
-        System.out.println("here: " + input_file);
+        //System.out.println("here: " + input_file);
     }
 
     // Method to remove import statements, annotations, and save a Java file
@@ -80,6 +81,18 @@ class Preprocessor {
                     writer.write(formattedLine);
                     writer.newLine();
                 }
+            }
+        }
+    }
+    
+    // Method to print the contents of the output file to the console
+    private static void printOutputFileContents() throws IOException {
+        String outputFileName = "out1.txt";
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(outputFileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
             }
         }
     }
