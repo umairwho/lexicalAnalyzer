@@ -28,7 +28,7 @@ class Preprocessor {
         }
 
         try {
-            removeCommentsAndSaveJavaFile(input_file);  // Call the method to remove comments and save the output file
+            formatAndSaveJavaFile(input_file);  // Call the method to format and save the output file
         } catch (IOException e) {
             System.out.println("Error writing output file: " + e.getMessage());
         }
@@ -36,8 +36,8 @@ class Preprocessor {
         System.out.println("here: " + input_file);
     }
 
-    // Method to remove comments and save a Java file
-    private static void removeCommentsAndSaveJavaFile(String inputFileName) throws IOException {
+    // Method to format and save a Java file
+    private static void formatAndSaveJavaFile(String inputFileName) throws IOException {
         String outputFileName = inputFileName + "_output.java"; // Create a new name for the output file
 
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFileName));
@@ -48,12 +48,12 @@ class Preprocessor {
 
             while ((line = reader.readLine()) != null) {
                 String trimmedLine = line.trim();
-                
+
                 if (!inBlockComment) {
                     int blockCommentStart = trimmedLine.indexOf("/*");
                     int blockCommentEnd = trimmedLine.indexOf("*/");
                     int lineComment = trimmedLine.indexOf("//");
-                    
+
                     if (blockCommentStart >= 0 && blockCommentEnd > blockCommentStart) {
                         inBlockComment = false;
                         trimmedLine = trimmedLine.substring(0, blockCommentStart) + trimmedLine.substring(blockCommentEnd + 2);
@@ -72,13 +72,14 @@ class Preprocessor {
                         trimmedLine = "";
                     }
                 }
-                
+
                 if (!trimmedLine.isEmpty()) {
-                    writer.write(trimmedLine);
+                    String formattedLine = trimmedLine.replaceAll("\t", " "); // Replace tabs with spaces
+                    formattedLine = formattedLine.replaceAll(" +", " "); // Replace multiple spaces with single space
+                    writer.write(formattedLine);
                     writer.newLine();
                 }
             }
         }
     }
 }
-
